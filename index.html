@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JOJO名场面：人行道不是挺宽敞的吗…开上去！ | DIO SVG Animation</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* 原生 CSS 保底样式，确保无外部 CDN 时依然完美排版 */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background-color: #09090b;
+      color: #f4f4f5;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+    .app-card {
+      background-color: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
+      max-width: 1024px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #27272a;
+    }
+    .badge-jojo {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 800;
+      border-radius: 4px;
+      background-color: #facc15;
+      color: #000;
+      letter-spacing: 0.05em;
+    }
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+    .ctrl-btn {
+      padding: 6px 11px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      background-color: #27272a;
+      color: #e4e4e7;
+      border: 1px solid #3f3f46;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .ctrl-btn:hover { background-color: #3f3f46; }
+    .ctrl-btn-danger {
+      background-color: #dc2626;
+      color: #fff;
+      border-color: #ef4444;
+    }
+    .ctrl-btn-danger:hover { background-color: #ef4444; }
+    .ctrl-btn-gold {
+      background-color: #facc15;
+      color: #000;
+      font-weight: 800;
+      border-color: #fde047;
+    }
+    .ctrl-btn-gold:hover { background-color: #fde047; }
+    .ctrl-btn-purple {
+      background-color: #9333ea;
+      color: #fff;
+      font-weight: 800;
+      border-color: #a855f7;
+    }
+    .bottom-bar {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 12px;
+      color: #a1a1aa;
+    }
+
+    @keyframes shake-light {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(-2px, 1px) rotate(-0.4deg); }
+      50% { transform: translate(2px, -2px) rotate(0.4deg); }
+      75% { transform: translate(-1px, -1px) rotate(-0.2deg); }
+    }
+    @keyframes shake-heavy {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-5px, 3px) rotate(-1deg); }
+      40% { transform: translate(5px, -4px) rotate(1.2deg); }
+      60% { transform: translate(-4px, -2px) rotate(-0.8deg); }
+      80% { transform: translate(4px, 3px) rotate(0.6deg); }
+    }
+    @keyframes men-float {
+      0% { transform: translateY(0px) scale(1) rotate(-5deg); opacity: 0.9; }
+      50% { transform: translateY(-12px) scale(1.08) rotate(3deg); opacity: 1; }
+      100% { transform: translateY(0px) scale(1) rotate(-5deg); opacity: 0.9; }
+    }
+    @keyframes car-bounce {
+      0%, 100% { transform: translateY(0px) rotate(-2.5deg); }
+      30% { transform: translateY(-7px) rotate(-4deg); }
+      60% { transform: translateY(3px) rotate(-1deg); }
+    }
+    .shake-light { animation: shake-light 0.18s infinite; }
+    .shake-heavy { animation: shake-heavy 0.1s infinite; }
+    .car-anim { animation: car-bounce 0.22s infinite ease-in-out; }
+    .menacing-1 { animation: men-float 0.8s infinite ease-in-out; }
+    .menacing-2 { animation: men-float 0.65s infinite ease-in-out 0.2s; }
+    .menacing-3 { animation: men-float 0.9s infinite ease-in-out 0.4s; }
+
+    /* 荒木线配色方案 */
+    .palette-classic {
+      --sky-top: #1a0b2e;
+      --sky-bot: #6d28d9;
+      --building: #3b1d5e;
+      --sidewalk: #ca8a04;
+      --sidewalk-edge: #fef08a;
+      --road: #1e1b4b;
+      --dio-hair: #facc15;
+      --dio-band: #22c55e;
+      --dio-clothes: #eab308;
+      --car-body: #111827;
+      --car-trim: #fde047;
+      --accent-menace: #ec4899;
+    }
+    .palette-araki {
+      --sky-top: #064e3b;
+      --sky-bot: #10b981;
+      --building: #047857;
+      --sidewalk: #db2777;
+      --sidewalk-edge: #fbcfe8;
+      --road: #311042;
+      --dio-hair: #f472b6;
+      --dio-band: #38bdf8;
+      --dio-clothes: #a855f7;
+      --car-body: #1e1b4b;
+      --car-trim: #2dd4bf;
+      --accent-menace: #facc15;
+    }
+    .palette-crimson {
+      --sky-top: #2a0404;
+      --sky-bot: #991b1b;
+      --building: #450a0a;
+      --sidewalk: #78350f;
+      --sidewalk-edge: #fca5a5;
+      --road: #09090b;
+      --dio-hair: #fde047;
+      --dio-band: #ef4444;
+      --dio-clothes: #dc2626;
+      --car-body: #09090b;
+      --car-trim: #f87171;
+      --accent-menace: #fef08a;
+    }
+
+    /* 时停滤镜 */
+    .the-world-invert {
+      filter: invert(1) hue-rotate(180deg) contrast(1.3);
+      transition: filter 0.15s ease;
+    }
+    .the-world-frozen {
+      filter: grayscale(0.85) contrast(1.25) sepia(0.2);
+      transition: filter 0.4s ease;
+    }
+    .paused-anim * {
+      animation-play-state: paused !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-card">
+    
+    <!-- 顶部标题与控制栏 -->
+    <div class="top-bar">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="badge-jojo">JOJO PART 3</span>
+          <h2 style="margin:0;font-size:18px;font-weight:800;">
+            DIO 开罗人行道飙车名场面
+          </h2>
+        </div>
+        <p style="margin:4px 0 0 0;font-size:12px;color:#a1a1aa;">
+          「歩道が広いではないか… 行け」(人行道不是挺宽敞的吗… 开上去！)
+        </p>
+      </div>
+
+      <!-- 快捷交互按钮组 -->
+      <div class="btn-group">
+        <button id="btn-scene" class="ctrl-btn">
+          🎬 切换分镜: 雙重視角
+        </button>
+        <button id="btn-mode" class="ctrl-btn ctrl-btn-danger">
+          🔥 狂飙模式: MAX
+        </button>
+        <button id="btn-palette" class="ctrl-btn">
+          🎨 荒木线配色
+        </button>
+        <button id="btn-theworld" class="ctrl-btn ctrl-btn-gold">
+          ⏱️ ザ・ワールド!
+        </button>
+      </div>
+    </div>
+
+    <!-- 主 SVG 舞台容器 -->
+    <div id="stage-wrapper" class="palette-classic shake-light" style="position:relative;border-radius:10px;overflow:hidden;border:2px solid #000;aspect-ratio:16/9;cursor:pointer;">
+      <svg id="jojo-svg" viewBox="0 0 960 540" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+        <defs>
+          <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="var(--sky-top)" />
+            <stop offset="100%" stop-color="var(--sky-bot)" />
+          </linearGradient>
+          <radialGradient id="dioAura" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#facc15" stop-opacity="0.85" />
+            <stop offset="55%" stop-color="#eab308" stop-opacity="0.35" />
+            <stop offset="100%" stop-color="#a855f7" stop-opacity="0" />
+          </radialGradient>
+          <linearGradient id="headlightBeam" x1="0%" y1="50%" x2="100%" y2="50%">
+            <stop offset="0%" stop-color="#fef08a" stop-opacity="0.95" />
+            <stop offset="40%" stop-color="#fde047" stop-opacity="0.45" />
+            <stop offset="100%" stop-color="#fef08a" stop-opacity="0" />
+          </linearGradient>
+          <linearGradient id="carBodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#374151" />
+            <stop offset="25%" stop-color="var(--car-body)" />
+            <stop offset="90%" stop-color="#030712" />
+          </linearGradient>
+          <pattern id="mangaDots" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(25)">
+            <circle cx="3" cy="3" r="1.5" fill="#000000" fill-opacity="0.28" />
+          </pattern>
+          <g id="carWheel">
+            <circle cx="0" cy="0" r="36" fill="#09090b" stroke="#000" stroke-width="4" />
+            <circle cx="0" cy="0" r="24" fill="#d4d4d8" stroke="#000" stroke-width="3" />
+            <circle cx="0" cy="0" r="18" fill="#27272a" />
+            <g class="wheel-spokes">
+              <line x1="-22" y1="0" x2="22" y2="0" stroke="#f4f4f5" stroke-width="3" />
+              <line x1="0" y1="-22" x2="0" y2="22" stroke="#f4f4f5" stroke-width="3" />
+              <line x1="-15" y1="-15" x2="15" y2="15" stroke="#f4f4f5" stroke-width="2.5" />
+              <line x1="-15" y1="15" x2="15" y2="-15" stroke="#f4f4f5" stroke-width="2.5" />
+            </g>
+            <circle cx="0" cy="0" r="7" fill="#eab308" stroke="#000" stroke-width="2" />
+          </g>
+          <g id="gogogoChar">
+            <path d="M4,4 L38,2 L38,28 L8,30 L8,23 L30,21 L30,10 L4,11 Z M39,0 L44,8 L40,11 L35,3 Z M45,-2 L50,6 L46,9 L41,1 Z" fill="#000" transform="translate(5, 5)" />
+            <path d="M4,4 L38,2 L38,28 L8,30 L8,23 L30,21 L30,10 L4,11 Z M39,0 L44,8 L40,11 L35,3 Z M45,-2 L50,6 L46,9 L41,1 Z" fill="var(--accent-menace)" stroke="#000" stroke-width="2.5" stroke-linejoin="round" />
+          </g>
+          <g id="dododoChar">
+            <path d="M8,0 L17,0 L17,14 L36,22 L32,30 L17,22 L17,38 L8,38 Z M28,2 L33,10 L29,12 L24,4 Z M35,0 L40,8 L36,10 L31,2 Z" fill="#000" transform="translate(4, 4)" />
+            <path d="M8,0 L17,0 L17,14 L36,22 L32,30 L17,22 L17,38 L8,38 Z M28,2 L33,10 L29,12 L24,4 Z M35,0 L40,8 L36,10 L31,2 Z" fill="#facc15" stroke="#000" stroke-width="2.5" stroke-linejoin="round" />
+          </g>
+          <clipPath id="insetClip">
+            <polygon points="0,0 530,0 440,255 0,255" />
+          </clipPath>
+        </defs>
+
+        <!-- 1. 远景与开罗街道背景 -->
+        <g id="main-sidewalk-scene">
+          <rect x="0" y="0" width="960" height="540" fill="url(#skyGrad)" />
+          <rect x="0" y="0" width="960" height="300" fill="url(#mangaDots)" />
+
+          <g id="bg-buildings">
+            <g class="building-strip" transform="translate(0, 0)">
+              <rect x="20" y="80" width="110" height="220" fill="var(--building)" stroke="#000" stroke-width="3" />
+              <path d="M130,120 Q185,55 240,120 L240,300 L130,300 Z" fill="var(--building)" stroke="#000" stroke-width="3" />
+              <rect x="250" y="60" width="140" height="240" fill="var(--building)" stroke="#000" stroke-width="3" />
+              <rect x="275" y="90" width="25" height="45" rx="12" fill="#fde047" opacity="0.7" />
+              <rect x="325" y="90" width="25" height="45" rx="12" fill="#fde047" opacity="0.4" />
+              <rect x="400" y="105" width="130" height="195" fill="var(--building)" stroke="#000" stroke-width="3" />
+              <polygon points="540,300 540,95 610,60 680,95 680,300" fill="var(--building)" stroke="#000" stroke-width="3" />
+              <rect x="695" y="75" width="120" height="225" fill="var(--building)" stroke="#000" stroke-width="3" />
+              <rect x="830" y="110" width="125" height="190" fill="var(--building)" stroke="#000" stroke-width="3" />
+              <line x1="210" y1="150" x2="210" y2="310" stroke="#000" stroke-width="6" />
+              <circle cx="225" cy="150" r="10" fill="#fef08a" />
+              <line x1="650" y1="150" x2="650" y2="310" stroke="#000" stroke-width="6" />
+              <circle cx="665" cy="150" r="10" fill="#fef08a" />
+            </g>
+            <g class="building-strip" transform="translate(960, 0)">
+              <rect x="20" y="80" width="110" height="220" fill="var(--building)" stroke="#000" stroke-width="3" />
+              <path d="M130,120 Q185,55 240,120 L240,300 L130,300 Z" fill="var(--building)" stroke="#000" stroke-width="3" />
+              <rect x="250" y="60" width="140" height="240" fill="var(--building)" stroke="#000" stroke-width="3" />
+              <rect x="275" y="90" width="25" height="45" rx="12" fill="#fde047" opacity="0.7" />
+              <rect x="325" y="90" width="25" height="45" rx="12" fill="#fde047" opacity="0.4" />
+              <rect x="400" y="105" width="130" height="195" fill="var(--building)" stroke="#000" stroke-width="3" />
+              <polygon points="540,300 540,95 610,60 680,95 680,300" fill="var(--building)" stroke="#000" stroke-width="3" />
+              <rect x="695" y="75" width="120" height="225" fill="var(--building)" stroke="#000" stroke-width="3" />
+              <rect x="830" y="110" width="125" height="190" fill="var(--building)" stroke="#000" stroke-width="3" />
+            </g>
+          </g>
+
+          <!-- 2. 宽敞的人行道与拥堵的车道 -->
+          <polygon points="0,275 960,245 960,435 0,465" fill="var(--sidewalk)" stroke="#000" stroke-width="4" />
+          <g id="sidewalk-tiles" stroke="#000" stroke-width="2.5" opacity="0.55">
+            <line x1="0" y1="335" x2="960" y2="305" />
+            <line x1="0" y1="395" x2="960" y2="365" />
+            <g id="tile-seams"></g>
+          </g>
+          <polygon points="0,455 960,425 960,450 0,480" fill="var(--sidewalk-edge)" stroke="#000" stroke-width="4" />
+          <g id="curb-stripes"></g>
+          <polygon points="0,480 960,450 960,540 0,540" fill="var(--road)" />
+          
+          <g id="stuck-traffic" transform="translate(80, 465)">
+            <path d="M0,45 L20,15 L95,15 L115,45 L140,50 L140,75 L-15,75 L-15,50 Z" fill="#475569" stroke="#000" stroke-width="3.5" />
+            <polygon points="26,20 55,20 55,42 12,42" fill="#94a3b8" stroke="#000" stroke-width="2" />
+            <polygon points="62,20 90,20 104,42 62,42" fill="#94a3b8" stroke="#000" stroke-width="2" />
+            <text x="20" y="64" fill="#cbd5e1" font-size="13" font-weight="bold">堵车中...</text>
+          </g>
+
+          <!-- 3. 背景横向极速流线 -->
+          <g id="speed-lines-layer"></g>
+
+          <!-- 4. 参议院议员的黑色加长豪车 -->
+          <g id="limo-container" transform="translate(230, 225)">
+            <g id="limo-body-group" class="car-anim">
+              <ellipse cx="260" cy="182" rx="265" ry="24" fill="#000" opacity="0.7" />
+              <g id="exhaust-flames" transform="translate(-35, 130)">
+                <polygon points="40,10 -45,-15 -15,12 -65,25 -10,30 -35,50 40,25" fill="#ef4444" stroke="#000" stroke-width="2.5" />
+                <polygon points="40,13 -20,-5 0,14 -30,22 0,24 40,20" fill="#fde047" />
+              </g>
+              <polygon points="495,95 920,15 920,195 495,135" fill="url(#headlightBeam)" />
+              <path d="M 5,105 L 30,98 L 95,32 L 315,26 L 375,88 L 515,94 L 522,148 L 495,158 L -10,158 L -15,120 Z" 
+                    fill="url(#carBodyGrad)" stroke="#000" stroke-width="5" stroke-linejoin="round" />
+              <polygon points="98,36 310,30 368,88 345,88 300,42 105,46" fill="#ffffff" opacity="0.25" />
+              <polygon points="0,128 518,122 518,152 -8,152" fill="#000000" opacity="0.65" />
+              <line x1="-10" y1="115" x2="515" y2="109" stroke="var(--car-trim)" stroke-width="4" />
+
+              <g id="window-rear">
+                <polygon points="108,42 222,39 222,92 65,94" fill="#1e1b4b" stroke="var(--car-trim)" stroke-width="3" />
+                <circle cx="155" cy="68" r="42" fill="url(#dioAura)" />
+                <path d="M125,92 Q135,62 155,62 Q175,62 185,92 Z" fill="var(--dio-clothes)" stroke="#000" stroke-width="2.5" />
+                <path d="M132,65 L122,48 L138,52 L144,38 L156,49 L168,37 L174,52 L190,46 L180,66 Z" fill="var(--dio-hair)" stroke="#000" stroke-width="2.5" />
+                <path d="M136,59 L176,59" stroke="var(--dio-band)" stroke-width="4" />
+                <polygon points="158,64 172,61 168,67" fill="#ef4444" />
+                <path d="M175,76 L215,68 L215,76 L175,84 Z" fill="var(--dio-clothes)" stroke="#000" stroke-width="2" />
+              </g>
+
+              <g id="window-front">
+                <polygon points="234,39 308,37 360,89 234,91" fill="#0f172a" stroke="var(--car-trim)" stroke-width="3" />
+                <ellipse cx="332" cy="78" rx="6" ry="18" transform="rotate(-22 332 78)" fill="none" stroke="#94a3b8" stroke-width="4" />
+                <circle cx="282" cy="66" r="16" fill="#fed7aa" stroke="#000" stroke-width="2.5" />
+                <circle cx="290" cy="62" r="6" fill="#fff" stroke="#000" stroke-width="2" />
+                <circle cx="292" cy="62" r="2" fill="#000" />
+                <ellipse cx="291" cy="75" rx="6" ry="8" fill="#7f1d1d" stroke="#000" stroke-width="2" />
+                <path d="M265,50 Q255,42 262,38 Q268,42 265,50 Z" fill="#38bdf8" />
+                <path d="M258,64 Q246,60 252,54 Q258,58 258,64 Z" fill="#38bdf8" />
+              </g>
+
+              <rect x="498" y="96" width="22" height="42" fill="#e4e4e7" stroke="#000" stroke-width="3" />
+              <line x1="504" y1="96" x2="504" y2="138" stroke="#000" stroke-width="2" />
+              <line x1="510" y1="96" x2="510" y2="138" stroke="#000" stroke-width="2" />
+              <line x1="515" y1="96" x2="515" y2="138" stroke="#000" stroke-width="2" />
+              <circle cx="512" cy="106" r="9" fill="#fef08a" stroke="#000" stroke-width="2.5" />
+              <circle cx="512" cy="126" r="8" fill="#ffffff" stroke="#000" stroke-width="2.5" />
+              <rect x="488" y="138" width="42" height="18" rx="4" fill="#d4d4d8" stroke="#000" stroke-width="3.5" />
+
+              <g transform="translate(85, 158)">
+                <g class="wheel-spin-group"><use href="#carWheel" /></g>
+              </g>
+              <g transform="translate(415, 154)">
+                <g class="wheel-spin-group"><use href="#carWheel" /></g>
+              </g>
+
+              <g id="tire-sparks" transform="translate(390, 180)">
+                <polygon points="0,0 -45,-25 -20,-5 -65,-10 -25,5 -50,20 0,8" fill="#fde047" stroke="#f97316" stroke-width="1.5" />
+                <polygon points="-80,4 -130,-18 -100,0 -145,8 -95,12" fill="#fb923c" />
+              </g>
+            </g>
+          </g>
+
+          <!-- 5. 飞溅的被撞飞路人层 -->
+          <g id="pedestrians-layer"></g>
+
+          <!-- 6. 漂浮的 JOJO 拟声词 -->
+          <g id="sfx-layer">
+            <g class="menacing-1" transform="translate(780, 70) scale(1.15)"><use href="#gogogoChar" /></g>
+            <g class="menacing-2" transform="translate(835, 120) scale(0.95)"><use href="#gogogoChar" /></g>
+            <g class="menacing-3" transform="translate(880, 60) scale(0.8)"><use href="#gogogoChar" /></g>
+            <g class="menacing-2" transform="translate(560, 175) rotate(-12) scale(1.2)"><use href="#dododoChar" /></g>
+            <g class="menacing-1" transform="translate(625, 155) rotate(-8) scale(1.0)"><use href="#dododoChar" /></g>
+            <g class="menacing-3" transform="translate(680, 140) rotate(-5) scale(0.85)"><use href="#dododoChar" /></g>
+          </g>
+        </g>
+
+        <!-- 7. 左上角：漫画斜切分镜 (DIO 车内名台词特写) -->
+        <g id="manga-cutin-panel">
+          <g clip-path="url(#insetClip)">
+            <polygon points="0,0 530,0 440,255 0,255" fill="#450a0a" />
+            <g stroke="#facc15" stroke-width="2" opacity="0.35">
+              <line x1="180" y1="120" x2="0" y2="0" />
+              <line x1="180" y1="120" x2="120" y2="0" />
+              <line x1="180" y1="120" x2="280" y2="0" />
+              <line x1="180" y1="120" x2="450" y2="0" />
+              <line x1="180" y1="120" x2="530" y2="80" />
+              <line x1="180" y1="120" x2="500" y2="200" />
+              <line x1="180" y1="120" x2="420" y2="255" />
+              <line x1="180" y1="120" x2="220" y2="255" />
+              <line x1="180" y1="120" x2="50" y2="255" />
+              <line x1="180" y1="120" x2="0" y2="180" />
+            </g>
+
+            <g id="dio-closeup-art" transform="translate(15, 12)">
+              <path d="M 10,245 L 45,155 L 195,160 L 235,245 Z" fill="var(--dio-clothes)" stroke="#000" stroke-width="4" />
+              <path d="M 65,165 L 55,115 L 175,115 L 165,165 Z" fill="#ca8a04" stroke="#000" stroke-width="3.5" />
+              <rect x="88" y="120" width="54" height="50" fill="#fde68a" stroke="#000" stroke-width="3.5" />
+              <polygon points="88,125 142,125 142,155 110,145" fill="#000" opacity="0.75" />
+              <path d="M 42,105 L 18,75 L 48,70 L 28,35 L 68,45 L 75,8 L 108,35 L 135,5 L 152,38 L 192,22 L 176,60 L 208,68 L 180,102 Z" 
+                    fill="var(--dio-hair)" stroke="#000" stroke-width="4" stroke-linejoin="round" />
+              <path d="M 64,62 L 166,62 L 160,115 L 115,148 L 70,115 Z" fill="#fef3c7" stroke="#000" stroke-width="4" stroke-linejoin="round" />
+              <polygon points="65,65 108,65 102,135 70,115" fill="#d97706" opacity="0.45" />
+              <polygon points="112,72 104,106 118,110 116,102" fill="#000" />
+              <line x1="74" y1="95" x2="92" y2="102" stroke="#000" stroke-width="2" />
+              <line x1="76" y1="101" x2="90" y2="107" stroke="#000" stroke-width="2" />
+              <line x1="142" y1="98" x2="155" y2="92" stroke="#000" stroke-width="2" />
+              <line x1="144" y1="104" x2="156" y2="98" stroke="#000" stroke-width="2" />
+              <path d="M 60,55 L 170,55 L 168,72 L 62,72 Z" fill="var(--dio-band)" stroke="#000" stroke-width="3.5" />
+              <path d="M 115,53 C 110,45 98,50 104,61 L 115,71 L 126,61 C 132,50 120,45 115,53 Z" fill="#15803d" stroke="#000" stroke-width="2.5" />
+              <path d="M 75,55 L 88,82 L 98,55 M 128,55 L 140,80 L 152,55" fill="var(--dio-hair)" stroke="#000" stroke-width="3" />
+              <polygon points="75,78 104,84 98,91 73,86" fill="#fff" stroke="#000" stroke-width="2.5" />
+              <circle cx="91" cy="85" r="4" fill="#dc2626" stroke="#000" stroke-width="1.5" />
+              <path d="M 70,72 L 106,80" stroke="#000" stroke-width="4" />
+              <polygon points="126,84 155,78 157,86 132,91" fill="#fff" stroke="#000" stroke-width="2.5" />
+              <circle cx="139" cy="85" r="4" fill="#dc2626" stroke="#000" stroke-width="1.5" />
+              <path d="M 124,80 L 160,72" stroke="#000" stroke-width="4" />
+              <path d="M 94,122 Q 115,134 138,120 Q 126,138 115,137 Q 102,138 94,122 Z" fill="var(--dio-band)" stroke="#000" stroke-width="2.5" />
+              <polygon points="102,124 106,130 110,125" fill="#fff" stroke="#000" stroke-width="1" />
+              <polygon points="124,124 128,130 132,123" fill="#fff" stroke="#000" stroke-width="1" />
+              <g transform="translate(155, 130)">
+                <path d="M 0,45 L 40,22 L 95,18 L 96,32 L 52,38 L 45,75 L 10,75 Z" fill="#fef3c7" stroke="#000" stroke-width="3.5" stroke-linejoin="round" />
+                <rect x="-8" y="42" width="28" height="36" transform="rotate(-15)" fill="#000" stroke="var(--dio-hair)" stroke-width="3" />
+              </g>
+            </g>
+
+            <g transform="translate(275, 16)">
+              <polygon points="10,15 35,2 65,14 105,0 135,14 185,4 175,45 198,75 172,110 190,155 145,168 120,192 85,172 45,190 22,162 0,130 15,90 -4,50" 
+                       fill="#ffffff" stroke="#000000" stroke-width="4" />
+              <text x="95" y="55" text-anchor="middle" fill="#000" font-size="20" font-weight="900">人行道不是</text>
+              <text x="95" y="83" text-anchor="middle" fill="#000" font-size="20" font-weight="900">挺宽敞的吗…</text>
+              <text x="95" y="122" text-anchor="middle" fill="#dc2626" font-size="30" font-weight="900" stroke="#000" stroke-width="1">开上去！</text>
+              <text x="95" y="148" text-anchor="middle" fill="#52525b" font-size="12" font-weight="bold">歩道が広いではないか…行け</text>
+            </g>
+          </g>
+          <polyline points="0,255 440,255 530,0" fill="none" stroke="#000000" stroke-width="12" />
+          <polyline points="0,255 440,255 530,0" fill="none" stroke="#facc15" stroke-width="4" />
+        </g>
+
+        <!-- 8. 右下角：参议员崩溃台词与速度表 HUD -->
+        <g id="hud-dialogue-layer" transform="translate(530, 448)">
+          <rect x="0" y="0" width="415" height="78" rx="8" fill="#09090b" fill-opacity="0.88" stroke="#facc15" stroke-width="3" />
+          <text id="subtitle-speaker" x="16" y="28" fill="#facc15" font-size="15" font-weight="900">
+            DIO (迪奥·布兰度) :
+          </text>
+          <text id="subtitle-text" x="16" y="56" fill="#ffffff" font-size="18" font-weight="bold">
+            「フハハハハ！人行道果然畅通无阻！继续加速！」
+          </text>
+          <g transform="translate(325, 12)">
+            <rect x="0" y="0" width="76" height="54" rx="6" fill="#dc2626" stroke="#fff" stroke-width="2" />
+            <text id="speed-readout" x="38" y="32" text-anchor="middle" fill="#fef08a" font-size="24" font-weight="900">145</text>
+            <text x="38" y="48" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">KM/H</text>
+          </g>
+        </g>
+
+        <!-- 9. THE WORLD 时停特效层 -->
+        <g id="the-world-layer" pointer-events="none" opacity="0">
+          <circle id="time-stop-sphere" cx="385" cy="295" r="0" fill="none" stroke="#fde047" stroke-width="25" opacity="0.85" />
+          <g id="stopped-knives" opacity="0">
+            <g transform="translate(580, 210) rotate(12)">
+              <polygon points="0,0 55,6 0,12" fill="#e4e4e7" stroke="#000" stroke-width="2" />
+              <rect x="-28" y="2" width="28" height="8" rx="2" fill="#78350f" stroke="#000" stroke-width="2" />
+            </g>
+            <g transform="translate(650, 260) rotate(-6)">
+              <polygon points="0,0 55,6 0,12" fill="#e4e4e7" stroke="#000" stroke-width="2" />
+              <rect x="-28" y="2" width="28" height="8" rx="2" fill="#78350f" stroke="#000" stroke-width="2" />
+            </g>
+            <g transform="translate(610, 315) rotate(4)">
+              <polygon points="0,0 55,6 0,12" fill="#e4e4e7" stroke="#000" stroke-width="2" />
+              <rect x="-28" y="2" width="28" height="8" rx="2" fill="#78350f" stroke="#000" stroke-width="2" />
+            </g>
+            <text x="480" y="95" text-anchor="middle" fill="#fde047" stroke="#000" stroke-width="3" font-size="44" font-weight="900" letter-spacing="4">
+              時は止まった… (时间停止了)
+            </text>
+          </g>
+        </g>
+
+        <!-- 10. 经典 JOJO 「To Be Continued」 箭头标记 -->
+        <g id="tbc-arrow" transform="translate(18, 478)">
+          <polygon points="0,18 32,0 32,10 175,10 175,26 32,26 32,36" fill="#fef08a" stroke="#000" stroke-width="3.5" stroke-linejoin="round" />
+          <text x="42" y="23" fill="#000" font-size="15" font-weight="900" font-style="italic" letter-spacing="0.5">To Be Continued</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- 底部互动控制台与台词切换 -->
+    <div class="bottom-bar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <label style="display:flex;align-items:center;gap:6px;font-weight:600;color:#e4e4e7;">
+          <span>🚗 油门速度:</span>
+          <input id="speed-slider" type="range" min="5" max="35" value="22" style="width:110px;accent-color:#eab308;cursor:pointer;" />
+        </label>
+        <button id="btn-spawn-ped" class="ctrl-btn">
+          💥 触发路人惊呼飞出
+        </button>
+      </div>
+      <div>
+        <span>💡 点击画面可切换经典台词 & 触发冲击波</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function () {
+      const stageWrapper = document.getElementById('stage-wrapper');
+      const svg = document.getElementById('jojo-svg');
+      const buildingStrips = document.querySelectorAll('.building-strip');
+      const tileSeamsGroup = document.getElementById('tile-seams');
+      const curbStripesGroup = document.getElementById('curb-stripes');
+      const speedLinesLayer = document.getElementById('speed-lines-layer');
+      const pedestriansLayer = document.getElementById('pedestrians-layer');
+      const wheelGroups = document.querySelectorAll('.wheel-spin-group');
+      const stuckTraffic = document.getElementById('stuck-traffic');
+      const mangaCutin = document.getElementById('manga-cutin-panel');
+
+      const btnScene = document.getElementById('btn-scene');
+      const btnMode = document.getElementById('btn-mode');
+      const btnPalette = document.getElementById('btn-palette');
+      const btnTheWorld = document.getElementById('btn-theworld');
+      const btnSpawnPed = document.getElementById('btn-spawn-ped');
+      const speedSlider = document.getElementById('speed-slider');
+      const speedReadout = document.getElementById('speed-readout');
+      const subtitleSpeaker = document.getElementById('subtitle-speaker');
+      const subtitleText = document.getElementById('subtitle-text');
+
+      const theWorldLayer = document.getElementById('the-world-layer');
+      const timeStopSphere = document.getElementById('time-stop-sphere');
+      const stoppedKnives = document.getElementById('stopped-knives');
+
+      let speed = 22;
+      let isTimeStopped = false;
+      let bgOffset = 0;
+      let wheelAngle = 0;
+      let trafficX = 180;
+      let currentPaletteIdx = 0;
+      const palettes = ['palette-classic', 'palette-araki', 'palette-crimson'];
+      const paletteNames = ['🎨 荒木线配色: 经典暗夜金', '🎨 荒木线配色: 妖艳翠绿粉', '🎨 荒木线配色: 猩红血夜'];
+      let sceneMode = 0;
+
+      const dialogues = [
+        { speaker: 'DIO (迪奥·布兰度) :', text: '「歩道が広いではないか… 行け」(人行道不是挺宽敞的吗… 开上去！)' },
+        { speaker: '参议员 威尔逊·菲利普斯 :', text: '「噫噫噫！要撞上人了！在人行道上开怎么可能不撞人啊！！」' },
+        { speaker: 'DIO (迪奥·布兰度) :', text: '「フハハハハ！撞死几只蝼蚁又如何？只管踩死油门往前冲！」' },
+        { speaker: '开罗路人 :', text: '「ギャアアアア！！为什么豪华轿车会冲上人行道啊？！」' },
+        { speaker: 'DIO (迪奥·布兰度) :', text: '「最高に『ハイ！』ってやつだアアアア！」(真是嗨到不行啊！！)' }
+      ];
+      let dialogueIdx = 0;
+
+      const seams = [];
+      for (let i = 0; i < 12; i++) {
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        tileSeamsGroup.appendChild(line);
+        seams.push({ el: line, x: i * 90 });
+      }
+
+      const curbs = [];
+      for (let i = 0; i < 14; i++) {
+        const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        poly.setAttribute('fill', i % 2 === 0 ? '#dc2626' : '#09090b');
+        curbStripesGroup.appendChild(poly);
+        curbs.push({ el: poly, x: i * 80 });
+      }
+
+      const speedLines = [];
+      for (let i = 0; i < 18; i++) {
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        const y = 60 + Math.random() * 380;
+        const w = 120 + Math.random() * 240;
+        const h = 1.5 + Math.random() * 3.5;
+        rect.setAttribute('y', y);
+        rect.setAttribute('width', w);
+        rect.setAttribute('height', h);
+        rect.setAttribute('fill', Math.random() > 0.35 ? '#fef08a' : '#ffffff');
+        rect.setAttribute('opacity', (0.35 + Math.random() * 0.5).toFixed(2));
+        speedLinesLayer.appendChild(rect);
+        speedLines.push({ el: rect, x: Math.random() * 960, w, factor: 1.5 + Math.random() * 1.2 });
+      }
+
+      const activePedestrians = [];
+      const sfxScreams = ['ギャアア！', 'うわああ！', 'ドゴォ！', 'グシャア！'];
+
+      function spawnPedestrian() {
+        if (isTimeStopped || activePedestrians.length > 5) return;
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        const scream = sfxScreams[Math.floor(Math.random() * sfxScreams.length)];
+        const shirtColors = ['#38bdf8', '#f43f5e', '#a855f7', '#22c55e', '#fb923c'];
+        const color = shirtColors[Math.floor(Math.random() * shirtColors.length)];
+
+        g.innerHTML = `
+          <polygon points="0,-45 12,-15 45,-25 22,2 48,28 12,18 0,48 -14,18 -45,26 -20,0 -42,-28 -12,-15" 
+                   fill="#fde047" stroke="#ef4444" stroke-width="3" opacity="0.9" />
+          <g class="ped-figure">
+            <circle cx="0" cy="-22" r="11" fill="#fed7aa" stroke="#000" stroke-width="3" />
+            <circle cx="-4" cy="-24" r="2.5" fill="#000" />
+            <circle cx="4" cy="-24" r="2.5" fill="#000" />
+            <ellipse cx="0" cy="-16" rx="4" ry="5" fill="#7f1d1d" />
+            <path d="M -10,-10 L 10,-10 L 14,18 L -14,18 Z" fill="${color}" stroke="#000" stroke-width="3" />
+            <path d="M -10,-6 L -34,-26 M 10,-6 L 34,-28" stroke="${color}" stroke-width="7" stroke-linecap="round" />
+            <path d="M -8,18 L -26,42 M 8,18 L 28,38" stroke="#1e293b" stroke-width="7" stroke-linecap="round" />
+          </g>
+          <text x="18" y="-32" fill="#fef08a" stroke="#000" stroke-width="3" paint-order="stroke" font-size="22" font-weight="900">
+            ${scream}
+          </text>
+        `;
+        pedestriansLayer.appendChild(g);
+
+        activePedestrians.push({
+          el: g,
+          x: 740 + Math.random() * 80,
+          y: 340 + Math.random() * 40,
+          vx: -(speed * 0.45) - (3 + Math.random() * 6),
+          vy: -(11 + Math.random() * 7),
+          rot: 0,
+          vRot: (Math.random() > 0.5 ? 1 : -1) * (8 + Math.random() * 10)
+        });
+      }
+
+      spawnPedestrian();
+
+      function animate() {
+        if (!isTimeStopped) {
+          bgOffset = (bgOffset - speed * 0.45) % 960;
+          buildingStrips[0].setAttribute('transform', `translate(${bgOffset}, 0)`);
+          buildingStrips[1].setAttribute('transform', `translate(${bgOffset + 960}, 0)`);
+
+          seams.forEach((s) => {
+            s.x -= speed * 1.15;
+            if (s.x < -80) s.x += 1080;
+            const topY = 275 - (s.x / 960) * 30;
+            const botY = 465 - (s.x / 960) * 30;
+            s.el.setAttribute('x1', s.x + 65);
+            s.el.setAttribute('y1', topY);
+            s.el.setAttribute('x2', s.x);
+            s.el.setAttribute('y2', botY);
+          });
+
+          curbs.forEach((c) => {
+            c.x -= speed * 1.15;
+            if (c.x < -80) c.x += 1120;
+            const yTop = 455 - (c.x / 960) * 30;
+            const yBot = yTop + 25;
+            const w = 42;
+            c.el.setAttribute(
+              'points',
+              `${c.x},${yTop} ${c.x + w},${yTop - 1.2} ${c.x + w - 8},${yBot - 1.2} ${c.x - 8},${yBot}`
+            );
+          });
+
+          speedLines.forEach((sl) => {
+            sl.x -= speed * sl.factor;
+            if (sl.x < -sl.w) {
+              sl.x = 960 + Math.random() * 200;
+              sl.el.setAttribute('y', 50 + Math.random() * 390);
+            }
+            sl.el.setAttribute('x', sl.x);
+          });
+
+          trafficX -= speed * 0.75;
+          if (trafficX < -220) trafficX = 1050;
+          stuckTraffic.setAttribute('transform', `translate(${trafficX}, 458)`);
+
+          wheelAngle = (wheelAngle + speed * 2.2) % 360;
+          wheelGroups.forEach((wg) => {
+            wg.setAttribute('transform', `rotate(${wheelAngle})`);
+          });
+
+          if (Math.random() < 0.032) {
+            spawnPedestrian();
+          }
+
+          for (let i = activePedestrians.length - 1; i >= 0; i--) {
+            const p = activePedestrians[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.68;
+            p.rot += p.vRot;
+            p.el.setAttribute('transform', `translate(${p.x}, ${p.y}) rotate(${p.rot})`);
+
+            if (p.y > 580 || p.x < -120) {
+              p.el.remove();
+              activePedestrians.splice(i, 1);
+            }
+          }
+
+          const displayKmh = Math.round(speed * 6.5 + (Math.random() * 5 - 2));
+          speedReadout.textContent = displayKmh;
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      requestAnimationFrame(animate);
+
+      speedSlider.addEventListener('input', (e) => {
+        speed = parseFloat(e.target.value);
+        if (speed >= 26) {
+          stageWrapper.classList.remove('shake-light');
+          stageWrapper.classList.add('shake-heavy');
+          btnMode.textContent = '🔥 狂飙模式: OVERDRIVE';
+        } else {
+          stageWrapper.classList.remove('shake-heavy');
+          stageWrapper.classList.add('shake-light');
+          btnMode.textContent = '🚗 狂飙模式: 巡航';
+        }
+      });
+
+      btnMode.addEventListener('click', () => {
+        if (speed < 30) {
+          speed = 34;
+          speedSlider.value = 34;
+          stageWrapper.classList.remove('shake-light');
+          stageWrapper.classList.add('shake-heavy');
+          btnMode.textContent = '🔥 狂飙模式: MAX!!';
+          spawnPedestrian();
+        } else {
+          speed = 18;
+          speedSlider.value = 18;
+          stageWrapper.classList.remove('shake-heavy');
+          stageWrapper.classList.add('shake-light');
+          btnMode.textContent = '🚗 狂飙模式: 常速';
+        }
+      });
+
+      btnPalette.addEventListener('click', () => {
+        stageWrapper.classList.remove(palettes[currentPaletteIdx]);
+        currentPaletteIdx = (currentPaletteIdx + 1) % palettes.length;
+        stageWrapper.classList.add(palettes[currentPaletteIdx]);
+        btnPalette.textContent = paletteNames[currentPaletteIdx];
+      });
+
+      btnScene.addEventListener('click', () => {
+        sceneMode = (sceneMode + 1) % 3;
+        if (sceneMode === 0) {
+          mangaCutin.style.display = 'block';
+          svg.setAttribute('viewBox', '0 0 960 540');
+          btnScene.textContent = '🎬 切换分镜: 雙重視角';
+        } else if (sceneMode === 1) {
+          mangaCutin.style.display = 'none';
+          svg.setAttribute('viewBox', '0 0 960 540');
+          btnScene.textContent = '🎬 切换分镜: 全景飙车';
+        } else {
+          mangaCutin.style.display = 'block';
+          svg.setAttribute('viewBox', '0 0 600 338');
+          btnScene.textContent = '🎬 切换分镜: DIO特写';
+        }
+      });
+
+      btnSpawnPed.addEventListener('click', () => {
+        spawnPedestrian();
+      });
+
+      stageWrapper.addEventListener('click', () => {
+        dialogueIdx = (dialogueIdx + 1) % dialogues.length;
+        subtitleSpeaker.textContent = dialogues[dialogueIdx].speaker;
+        subtitleText.textContent = dialogues[dialogueIdx].text;
+        spawnPedestrian();
+      });
+
+      btnTheWorld.addEventListener('click', () => {
+        if (!isTimeStopped) {
+          isTimeStopped = true;
+          btnTheWorld.textContent = '⏳ 時は動き出す (解除时停)';
+          btnTheWorld.classList.remove('ctrl-btn-gold');
+          btnTheWorld.classList.add('ctrl-btn-purple');
+
+          stageWrapper.classList.add('the-world-invert', 'paused-anim');
+          theWorldLayer.setAttribute('opacity', '1');
+          timeStopSphere.setAttribute('r', '60');
+
+          let r = 60;
+          const expandTimer = setInterval(() => {
+            r += 95;
+            timeStopSphere.setAttribute('r', r);
+            if (r > 1100) {
+              clearInterval(expandTimer);
+              stageWrapper.classList.remove('the-world-invert');
+              stageWrapper.classList.add('the-world-frozen');
+              stoppedKnives.setAttribute('opacity', '1');
+              subtitleSpeaker.textContent = 'DIO (ザ・ワールド) :';
+              subtitleText.textContent = '「世界（ザ・ワールド）！！時は止まった…」';
+            }
+          }, 25);
+        } else {
+          isTimeStopped = false;
+          btnTheWorld.textContent = '⏱️ ザ・ワールド!';
+          btnTheWorld.classList.remove('ctrl-btn-purple');
+          btnTheWorld.classList.add('ctrl-btn-gold');
+
+          stageWrapper.classList.remove('the-world-invert', 'the-world-frozen', 'paused-anim');
+          theWorldLayer.setAttribute('opacity', '0');
+          stoppedKnives.setAttribute('opacity', '0');
+          timeStopSphere.setAttribute('r', '0');
+          subtitleSpeaker.textContent = dialogues[0].speaker;
+          subtitleText.textContent = '「時は動き出す… 繼續在人行道狂飆吧！」';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
